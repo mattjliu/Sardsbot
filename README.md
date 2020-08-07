@@ -2,7 +2,11 @@
 
 A reddit bot built using [Selenium](https://selenium-python.readthedocs.io/) and [PRAW](https://praw.readthedocs.io/en/latest/) for the subreddit of the film podcast [Sardonicast](https://sardonicast.fireside.fm/).
 
-You can head on over to [/u/sardsbot](https://www.reddit.com/user/sardsbot/) to see the bot's latest activity.
+You can head on over to [u/sardsbot](https://www.reddit.com/user/sardsbot/) to see the bot's latest activity.
+
+<p align="center">
+ <img src="/screenshot.png" width="700"/>
+</p>
 
 ## Setup and Installation
 
@@ -21,7 +25,7 @@ You will need:
   "reddit_client_secret": "CLIENT_SECRET",
   "reddit_username": "reddit_bot",
   "reddit_password": "password",
-  "user_agent": "bot by /u/user",
+  "user_agent": "bot by u/user",
   "subreddit": "Sardonicast"
 }
 ```
