@@ -126,9 +126,9 @@ class TestBotCommand(unittest.TestCase):
 
   def test_simple_commands(self):
     search_string = find_search_string('!ratings', '!ratings search_string')
-    self.assertEqual(search_string, 'search_string')
+    self.assertEqual(search_string, 'search string')
     search_string = find_search_string('ratings!', 'ratings! search_string')
-    self.assertEqual(search_string, 'search_string')
+    self.assertEqual(search_string, 'search string')
 
   def test_non_simple_commands(self):
     search_string = find_search_string('!ratings',
@@ -139,7 +139,7 @@ class TestBotCommand(unittest.TestCase):
       Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       !ratings search_string
       ''')
-    self.assertEqual(search_string, 'search_string')
+    self.assertEqual(search_string, 'search string')
     search_string = find_search_string('!ratings',
                                        '''
       !ratings search_string
@@ -148,7 +148,7 @@ class TestBotCommand(unittest.TestCase):
       Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
       Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       ''')
-    self.assertEqual(search_string, 'search_string')
+    self.assertEqual(search_string, 'search string')
     search_string = find_search_string('!ratings',
                                        '''
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -161,7 +161,7 @@ class TestBotCommand(unittest.TestCase):
       Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
       Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       ''')
-    self.assertEqual(search_string, 'search_string')
+    self.assertEqual(search_string, 'search string')
 
   def test_multiple_commands(self):
     search_string = find_search_string('!ratings',
@@ -171,7 +171,7 @@ class TestBotCommand(unittest.TestCase):
       !ratings search_string2
       !ratings search_string3
       ''')
-    self.assertEqual(search_string, 'search_string0')
+    self.assertEqual(search_string, 'search string0')
 
 
 if __name__ == '__main__':

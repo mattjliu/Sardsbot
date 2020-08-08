@@ -128,7 +128,7 @@ def create_response(activity_dict, ratings_dict, reviews_dict, film_title, film_
 def find_search_string(keyword, comment_body):
   pattern = re.compile(f'(?<=({keyword} )).+', re.IGNORECASE)
   search_string = re.search(pattern, comment_body).group(0)
-  return search_string
+  return re.sub(r'[^A-Za-z0-9 ]+', ' ', search_string)
 
 
 if __name__ == '__main__':
