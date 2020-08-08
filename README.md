@@ -1,7 +1,5 @@
 # Sardsbot
 
-[![license-mit](https://img.shields.io/badge/License-MIT-blue)](https://github.com/mattjliu/Sardsbot/blob/master/LICENSE)
-
 A reddit bot built using [Selenium](https://selenium-python.readthedocs.io/) and [PRAW](https://praw.readthedocs.io/en/latest/) for the subreddit of the film-discussion podcast [Sardonicast](https://sardonicast.com/). The bot responds with film ratings from the 3 hosts [Adam](https://letterboxd.com/ymsunofficial/), [Ralph](https://letterboxd.com/ralfmakesmovies/) and [Alex](https://letterboxd.com/ihe/) when users ask. You can head on over to [u/sardsbot](https://www.reddit.com/user/sardsbot/) to see the bot's latest activity.
 
 <p align="center">
