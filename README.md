@@ -1,6 +1,8 @@
 # Sardsbot
 
-A reddit bot built using [Selenium](https://selenium-python.readthedocs.io/) and [PRAW](https://praw.readthedocs.io/en/latest/) for the subreddit of the movie-related podcast [Sardonicast](https://sardonicast.fireside.fm/). You can head on over to [u/sardsbot](https://www.reddit.com/user/sardsbot/) to see the bot's latest activity.
+[![license-mit](https://img.shields.io/badge/License-MIT-blue)](https://github.com/mattjliu/Sardsbot/blob/master/LICENSE)
+
+A reddit bot built using [Selenium](https://selenium-python.readthedocs.io/) and [PRAW](https://praw.readthedocs.io/en/latest/) for the subreddit of the film-discussion podcast [Sardonicast](https://sardonicast.com/). The bot responds with film ratings from the 3 hosts [Adam](https://letterboxd.com/ymsunofficial/), [Ralph](https://letterboxd.com/ralfmakesmovies/) and [Alex](https://letterboxd.com/ihe/) when users ask. You can head on over to [u/sardsbot](https://www.reddit.com/user/sardsbot/) to see the bot's latest activity.
 
 <p align="center">
  <img src="/screenshot.png" width="700"/>
@@ -13,7 +15,7 @@ You will need:
 - A [Letterboxd](https://letterboxd.com/) account for the bot. For this to work, be sure to follow *only* the accounts of [Adam](https://letterboxd.com/ymsunofficial/), [Ralph](https://letterboxd.com/ralfmakesmovies/) and [Alex](https://letterboxd.com/ihe/) on this account.
 - A reddit account for the bot. [Create an application](https://github.com/reddit-archive/reddit/wiki/OAuth2-Quick-Start-Example#first-steps) using said account to obtain a `CLIENT_ID` and `CLIENT_SECRET`.
 
-1. Clone this repo and run `pip install requirements.txt`
+1. Clone this repo and install dependencies with `pip install requirements.txt`
 2. Fill out your crendentials in `config.json`. The config file should look like this:
 ```
 {
@@ -32,7 +34,7 @@ You will need:
 5. If you want to test the bot, you can set the `subreddit` field in `config.json` to a subreddit like [r/testingground4bots](https://www.reddit.com/r/testingground4bots/).
 6. Run `python main.py`
 
-## Deployement
+## Deployment
 
 I'm hosting the bot using [Heroku](https://www.heroku.com/). If you are deploying in another way, make sure you can install ChromeDriver and Google Chrome or add the location of ChromeDriver and the Google Chrome binaries in your environment variables.
 
@@ -52,6 +54,6 @@ Finally, deploy via `git push heroku master`.
 
 ## Letterboxd API
 
-The bot works by using Selenium to login to a Letterboxd account that follows the 3 hosts of the podcast. It then scrapes their ratings, watchlist information and reviews for a given film. It also scrapes the Letterboxd search results to make it easier for users (when a redditor comments `!ratings <film_title>`, the bot scrapes the Letterboxd search results for `<film_title>` for the best match).
+The bot uses Selenium to login to a Letterboxd account that follows the 3 hosts of the podcast. It then scrapes their ratings, watchlist information and reviews for a given film. It also scrapes the Letterboxd search results to make it easier for users (when a redditor comments `!ratings <film_title>`, the bot scrapes the Letterboxd search results for `<film_title>` for the best match).
 
-The [Letterboxd API](http://api-docs.letterboxd.com/) is currently in closed beta, and it is unclear how easy it is to gain access. If I eventually get access, I will make sure to rewrite the bot to use the API instead. Until then, this is the best implementation I came up wit.
+The [Letterboxd API](http://api-docs.letterboxd.com/) is currently in closed beta, and it is unclear how easy it is to gain access. If I eventually get access, I will make sure to rewrite the bot to use the API instead. Until then, this is the best implementation I came up with.
