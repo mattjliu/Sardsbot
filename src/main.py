@@ -126,9 +126,9 @@ def create_response(activity_dict, ratings_dict, reviews_dict, film_title, film_
 
 
 def find_search_string(keyword, comment_body):
-  pattern = re.compile(f'(?<=({keyword} )).+', re.IGNORECASE)
+  pattern = re.compile(f'(?<=(^{keyword} )).+', re.IGNORECASE | re.MULTILINE)
   search_string = re.search(pattern, comment_body).group(0)
-  return re.sub(r'[^A-Za-z0-9 ]+', ' ', search_string)
+  return re.sub(r'[^A-Za-z0-9\' ]+', ' ', search_string)
 
 
 if __name__ == '__main__':
@@ -147,7 +147,10 @@ if __name__ == '__main__':
   for comment in subreddit.stream.comments(skip_existing=True):
     for keyword in keywords:
       if keyword in comment.body.lower():
-        search_string = find_search_string(keyword, comment.body)
+        try:
+          search_string = find_search_string(keyword, comment.body)
+        except AttributeError:
+          continue
 
         driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options)
         driver.implicitly_wait(5)

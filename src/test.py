@@ -40,6 +40,8 @@ class TestSearch(unittest.TestCase):
     self.assertEqual(get_search_results(self.driver, 'phantom menace'), 'https://letterboxd.com/film/star-wars-episode-i-the-phantom-menace/')
     self.assertEqual(get_search_results(self.driver, 'birdman'), 'https://letterboxd.com/film/birdman-or-the-unexpected-virtue-of-ignorance/')
     self.assertEqual(get_search_results(self.driver, 'dead alive'), 'https://letterboxd.com/film/braindead-1992/')
+    self.assertEqual(get_search_results(self.driver, "rosemary's baby"), 'https://letterboxd.com/film/rosemarys-baby/')
+    self.assertEqual(get_search_results(self.driver, "ocean's eleven"), 'https://letterboxd.com/film/oceans-eleven-2001/')
 
   def test_search_fail(self):
     with self.assertRaises(NoSuchElementException):
@@ -137,12 +139,11 @@ class TestBotCommand(unittest.TestCase):
       Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
       Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
       Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      !ratings search_string
+      \n!ratings search_string
       ''')
     self.assertEqual(search_string, 'search string')
     search_string = find_search_string('!ratings',
-                                       '''
-      !ratings search_string
+                                       '''!ratings search_string
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
       Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
       Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
@@ -155,7 +156,7 @@ class TestBotCommand(unittest.TestCase):
       Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
       Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
       Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      !ratings search_string
+      \n!ratings search_string
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
       Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
       Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
@@ -163,15 +164,75 @@ class TestBotCommand(unittest.TestCase):
       ''')
     self.assertEqual(search_string, 'search string')
 
+    search_string = find_search_string('ratings!',
+                                       '''
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      \nratings! search_string
+      ''')
+    self.assertEqual(search_string, 'search string')
+    search_string = find_search_string('ratings!',
+                                       '''ratings! search_string
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      ''')
+    self.assertEqual(search_string, 'search string')
+    search_string = find_search_string('ratings!',
+                                       '''
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      \nratings! search_string
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      ''')
+    self.assertEqual(search_string, 'search string')
+
+  def test_no_film_title(self):
+    with self.assertRaises(AttributeError):
+      search_string = find_search_string('!ratings', '!ratings')
+    with self.assertRaises(AttributeError):
+      search_string = find_search_string('ratings!', 'ratings!')
+    with self.assertRaises(AttributeError):
+      search_string = find_search_string('!ratings',
+                                         '''
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      \n!ratings
+      ''')
+    with self.assertRaises(AttributeError):
+      search_string = find_search_string('ratings!',
+                                         '''
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      \nratings!
+      ''')
+
   def test_multiple_commands(self):
     search_string = find_search_string('!ratings',
-                                       '''
-      !ratings search_string0
-      !ratings search_string1
-      !ratings search_string2
-      !ratings search_string3
-      ''')
+                                       '!ratings search_string0\n!ratings search_string1\n!ratings search_string2\n!ratings search_string3')
     self.assertEqual(search_string, 'search string0')
+
+  def test_false_positive_match(self):
+    with self.assertRaises(AttributeError):
+      search_string = find_search_string('ratings!',
+                                         '''
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum ratings! search_string
+        ''')
 
 
 if __name__ == '__main__':
