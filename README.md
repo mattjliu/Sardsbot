@@ -13,7 +13,7 @@ You will need:
 - A [Letterboxd](https://letterboxd.com/) account for the bot. For this to work, be sure to follow *only* the accounts of [Adam](https://letterboxd.com/ymsunofficial/), [Ralph](https://letterboxd.com/ralfmakesmovies/) and [Alex](https://letterboxd.com/ihe/) on this account.
 - A reddit account for the bot. [Create an application](https://github.com/reddit-archive/reddit/wiki/OAuth2-Quick-Start-Example#first-steps) using said account to obtain a `CLIENT_ID` and `CLIENT_SECRET`.
 
-1. Clone this repo and install dependencies with `pip install requirements.txt`
+1. Clone this repo and install dependencies with `pip install -r requirements.txt`
 2. Fill out your crendentials in `config.json`. The config file should look like this:
 ```
 {
